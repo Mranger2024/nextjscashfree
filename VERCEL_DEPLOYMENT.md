@@ -2,6 +2,22 @@
 
 This guide provides step-by-step instructions for deploying the Cashfree payment integration application to Vercel.
 
+## Troubleshooting Deployment Issues
+
+If you encounter build errors during deployment, run the fix script:
+
+```bash
+npm run vercel:fix
+```
+
+This script automatically fixes common Vercel deployment issues:
+- Removes the `--turbopack` flag from the build script
+- Fixes Next.js configuration issues
+- Updates API route handlers to match Next.js 15.5+ type requirements
+- Removes conflicting builds configuration from vercel.json
+
+For detailed troubleshooting steps and solutions to common errors, see the [VERCEL_TROUBLESHOOTING.md](./VERCEL_TROUBLESHOOTING.md) guide.
+
 ## Prerequisites
 
 - A [Vercel](https://vercel.com) account

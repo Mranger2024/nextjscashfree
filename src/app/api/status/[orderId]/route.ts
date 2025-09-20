@@ -1,12 +1,17 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import Booking from '@/models/Booking';
 
 // GET /api/status/:orderId - Get booking status
-export async function GET(req: NextRequest, { params }: { params: { orderId: string } }) {
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ orderId: string }> }
+) {
   try {
     await connectDB();
     
+    const params = await context.params;
     const { orderId } = params;
 
     const booking = await Booking.findOne({ orderId });

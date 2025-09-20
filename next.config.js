@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
+  // Set the output file tracing root to the project directory to fix multiple lockfiles warning
+  outputFileTracingRoot: path.join(__dirname),
   // Enable React strict mode for better development experience
   reactStrictMode: true,
   
@@ -49,8 +53,10 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
   },
   
-  // Optimize production builds
-  swcMinify: true,
+  // Turbopack configuration
+  turbopack: {
+    // Add any necessary Turbopack configuration here
+  },
   
   // Configure webpack for production optimizations
   webpack: (config, { dev, isServer }) => {

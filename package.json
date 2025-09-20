@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "prod": "NODE_ENV=production next start",
     "setup:prod": "node setup-production.js",
@@ -13,7 +13,8 @@
     "docker:start": "docker-compose up -d",
     "docker:stop": "docker-compose down",
     "vercel:prepare": "node prepare-for-vercel.js",
-    "vercel:deploy": "powershell -File .\\deploy-to-vercel.ps1"
+    "vercel:deploy": "powershell -File .\\deploy-to-vercel.ps1",
+    "vercel:fix": "node fix-vercel-deploy.js"
   },
   "dependencies": {
     "@cashfreepayments/cashfree-js": "^1.0.5",

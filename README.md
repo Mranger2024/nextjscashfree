@@ -30,6 +30,25 @@ Alternatively, you can use the deployment script:
 npm run deploy
 ```
 
+### Vercel Deployment
+
+To deploy to Vercel, follow these steps:
+
+1. Run the Vercel preparation script: `npm run vercel:prepare`
+2. Push your code to a Git repository
+3. Connect your repository to Vercel
+4. Configure environment variables in Vercel dashboard
+5. Deploy your application
+
+If you encounter any deployment issues, run the fix script:
+
+```bash
+npm run vercel:fix
+```
+
+For detailed instructions, see [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md).
+For troubleshooting common issues, see [VERCEL_TROUBLESHOOTING.md](./VERCEL_TROUBLESHOOTING.md).
+
 ### Docker Deployment
 
 This application includes Docker configuration for easy deployment:
