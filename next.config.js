@@ -12,7 +12,7 @@ const nextConfig = {
   
   // Enable image optimization
   images: {
-    domains: ['cashfree.com'],
+    domains: ['cashfree.com', 'cashfreelogo.cashfree.com'],
     formats: ['image/avif', 'image/webp'],
   },
   
@@ -45,6 +45,18 @@ const nextConfig = {
         ],
       },
     ];
+  },
+  
+  // Configure path aliases
+  webpack: (config, { isServer }) => {
+    // Add path aliases
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src'),
+    };
+
+    // Important: return the modified config
+    return config;
   },
   
   // Configure environment variables that should be available on the client

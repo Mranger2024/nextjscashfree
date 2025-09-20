@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "next lint",
     "prod": "NODE_ENV=production next start",
     "setup:prod": "node setup-production.js",
     "deploy": "node deploy.js",
@@ -14,7 +15,8 @@
     "docker:stop": "docker-compose down",
     "vercel:prepare": "node prepare-for-vercel.js",
     "vercel:deploy": "powershell -File .\\deploy-to-vercel.ps1",
-    "vercel:fix": "node fix-vercel-deploy.js"
+    "vercel:fix": "node fix-vercel-deploy.js",
+    "postinstall": "npm install --production=false && npm run build"
   },
   "dependencies": {
     "@cashfreepayments/cashfree-js": "^1.0.5",
@@ -35,8 +37,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "15.5.3",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
-    "typescript": "^5"
+    "typescript": "^5.3.3"
   }
 }

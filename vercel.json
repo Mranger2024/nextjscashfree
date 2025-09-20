@@ -1,6 +1,24 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "includeFiles": ["src/**/*", "public/**/*", "next.config.js", "tailwind.config.js", "postcss.config.js"]
+      }
+    }
+  ],
   "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
     {
       "src": "/(.*)",
       "headers": {
@@ -10,17 +28,6 @@
         "strict-transport-security": "max-age=63072000; includeSubDomains; preload"
       },
       "continue": true
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
     }
   ],
   "env": {

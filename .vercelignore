@@ -1,0 +1,41 @@
+# Ignore files that don't need to be deployed
+.git
+.gitignore
+.env*.local
+.vercel
+.vscode
+*.md
+*.log
+.cache
+.next
+node_modules
+public/**/*.map
+public/**/*.md
+public/**/*.pdf
+public/**/*.zip
+public/**/*.docx
+public/**/*.xlsx
+public/**/*.pptx
+public/images/*
+!public/images/favicon.ico
+!public/images/logo*.{png,svg,jpg,jpeg}
+!public/images/icons/*.{png,svg,ico}
+
+# Ignore test files
+**/__tests__/**
+**/*.test.*
+**/*.spec.*
+**/*.e2e.*
+
+# Ignore development files
+*.local
+.env.development
+.env.test
+
+# Ignore deployment scripts
+deploy-to-vercel.ps1
+deploy.js
+fix-vercel-deploy.js
+prepare-for-vercel.js
+setup-production.js
+vercel-build.js
