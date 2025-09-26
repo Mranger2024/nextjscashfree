@@ -3,6 +3,18 @@ import { Cashfree, CFEnvironment } from 'cashfree-pg';
 import { connectDB } from '@/lib/db';
 import Booking from '@/models/Booking';
 
+// Helper function to ensure we have a valid URL with HTTPS
+const getReturnUrl = (path: string): string => {
+  // Get base URL from environment variable or default to localhost for development
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'www.nextmeet.chat';
+  
+  // Ensure the URL is HTTPS
+  const url = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+  
+  // Remove any trailing slashes and add the path
+  return `${url.replace(/\/$/, '')}${path}`;
+};
+
 // Helper function to generate order ID
 const generateOrderId = () => {
   return 'ORDER_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -67,8 +79,8 @@ export async function POST(req: NextRequest) {
         customer_email: email
       },
       order_meta: {
-        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment-success?order_id=${orderId}`,
-        notify_url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/webhook`,
+        return_url: getReturnUrl(`/payment-success?order_id=${orderId}`),
+        notify_url: getReturnUrl('/api/payment/webhook'),
         payment_methods: "cc,dc,upi"
       },
       cart_details: {

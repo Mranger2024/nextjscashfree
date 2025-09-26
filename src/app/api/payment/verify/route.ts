@@ -3,6 +3,18 @@ import { Cashfree, CFEnvironment } from 'cashfree-pg';
 import { connectDB } from '@/lib/db';
 import Booking from '@/models/Booking';
 
+// Helper function to ensure we have a valid URL with HTTPS
+const getReturnUrl = (path: string): string => {
+  // Get base URL from environment variable or default to localhost for development
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'www.nextmeet.chat';
+  
+  // Ensure the URL is HTTPS
+  const url = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+  
+  // Remove any trailing slashes and add the path
+  return `${url.replace(/\/$/, '')}${path}`;
+};
+
 // POST /api/payment/verify - Verify payment status and return booking data
 export async function POST(req: NextRequest) {
   try {
