@@ -1,17 +1,6 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
 
-// Remove this if you're not using Fullcalendar features
-const withTM = require('next-transpile-modules')([
-  '@fullcalendar/common',
-  '@fullcalendar/daygrid',
-  '@fullcalendar/interaction',
-  '@fullcalendar/react',
-  '@fullcalendar/timegrid',
-  '@fullcalendar/list',
-  '@fullcalendar/timeline'
-]);
-
 const nextConfig = {
   // Set the output file tracing root to the project directory to fix multiple lockfiles warning
   outputFileTracingRoot: path.join(__dirname),
@@ -98,5 +87,13 @@ const nextConfig = {
     return config;
   },
 };
+
+// For production builds, ensure we're using the correct environment
+if (process.env.NODE_ENV === 'production') {
+  // Ensure production environment variables are set
+  if (!process.env.NEXT_PUBLIC_BASE_URL) {
+    console.warn('Warning: NEXT_PUBLIC_BASE_URL is not set in production');
+  }
+}
 
 module.exports = nextConfig;
