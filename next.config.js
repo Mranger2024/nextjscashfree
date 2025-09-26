@@ -59,7 +59,47 @@ const nextConfig = {
   },
   
   // Configure webpack for production optimizations
-  webpack: (config, { dev, isServer }) => {
+  webpack(config, { dev, isServer }) {
+    // Add TypeScript path aliases
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src'),
+    };
+
+    // Only run this on the client-side build
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false, // Don't include fs module in client-side bundle
+        net: false,
+        tls: false,
+        child_process: false,
+        dns: false,
+      };
+    }
+
+    // Add rule for TypeScript files
+    config.module.rules.push({
+      test: /\.tsx?$/,
+      use: 'ts-loader',
+      exclude: /node_modules/,
+    });
+
+    // Add rule for CSS modules
+    config.module.rules.push({
+      test: /\.module\.css$/,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            modules: true,
+          },
+        },
+      ],
+    });
+
     // Production optimizations
     if (!dev && !isServer) {
       // Enable tree shaking and chunk splitting
