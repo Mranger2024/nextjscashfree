@@ -78,52 +78,6 @@ const nextConfig = {
       };
     }
 
-    // Add rule for TypeScript files
-    config.module.rules.push({
-      test: /\.tsx?$/,
-      use: 'ts-loader',
-      exclude: /node_modules/,
-    });
-
-    // Add rule for CSS modules
-    config.module.rules.push({
-      test: /\.module\.css$/,
-      use: [
-        'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            modules: true,
-          },
-        },
-      ],
-    });
-
-    // Production optimizations
-    if (!dev && !isServer) {
-      // Enable tree shaking and chunk splitting
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          commons: {
-            name: 'commons',
-            chunks: 'all',
-            minChunks: 2,
-          },
-          // Extract React and related packages into a separate chunk
-          react: {
-            name: 'react',
-            test: /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/,
-            chunks: 'all',
-            priority: 40,
-          },
-        },
-      };
-    }
-    
     return config;
   },
 };
