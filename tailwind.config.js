@@ -7,11 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#3b82f6',
+        secondary: '#10b981',
+      },
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
-        mono: ['var(--font-geist-mono)'],
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-mono)'],
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }

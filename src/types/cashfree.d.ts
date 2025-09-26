@@ -46,13 +46,33 @@ declare module 'cashfree-pg' {
   }
 
   export enum CFEnvironment {
-    PRODUCTION = 'PRODUCTION',
-    SANDBOX = 'SANDBOX'
+    SANDBOX = 'SANDBOX',
+    PRODUCTION = 'PRODUCTION'
   }
 
   export class Cashfree {
     constructor(environment: CFEnvironment, appId: string, secretKey: string);
     PGCreateOrder(orderData: any): Promise<{ data: OrderEntity }>;
     PGFetchOrder(orderId: string): Promise<{ data: OrderEntity }>;
+    [key: string]: any; // Add index signature to handle dynamic methods
+  }
+  
+  // Add global type augmentation for environment variables
+  declare global {
+    namespace NodeJS {
+      interface ProcessEnv {
+        CASHFREE_APP_ID: string;
+        CASHFREE_SECRET_KEY: string;
+        NEXT_PUBLIC_BASE_URL: string;
+      }
+    }
+    
+    // Fix for Next.js 15.5.3 route types
+    interface RequestInit {
+      next?: {
+        revalidate?: number | false;
+        tags?: string[];
+      };
+    }
   }
 }

@@ -46,12 +46,14 @@ export async function POST(req: NextRequest) {
       status: 'pending'
     });
 
-    // Initialize Cashfree SDK
+    // Initialize Cashfree SDK in PRODUCTION mode
     const cashfree = new Cashfree(
-      process.env.NODE_ENV === 'production' ? CFEnvironment.PRODUCTION : CFEnvironment.SANDBOX,
+      CFEnvironment.PRODUCTION, // Using PRODUCTION for live environment
       CASHFREE_APP_ID,
       CASHFREE_SECRET_KEY
     );
+    
+    console.log('Initialized Cashfree in PRODUCTION mode');
 
     // Create Cashfree order using SDK
     const orderData = {

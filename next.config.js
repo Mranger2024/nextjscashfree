@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
 
+// Remove this if you're not using Fullcalendar features
+const withTM = require('next-transpile-modules')([
+  '@fullcalendar/common',
+  '@fullcalendar/daygrid',
+  '@fullcalendar/interaction',
+  '@fullcalendar/react',
+  '@fullcalendar/timegrid',
+  '@fullcalendar/list',
+  '@fullcalendar/timeline'
+]);
+
 const nextConfig = {
   // Set the output file tracing root to the project directory to fix multiple lockfiles warning
   outputFileTracingRoot: path.join(__dirname),
@@ -12,7 +23,7 @@ const nextConfig = {
   
   // Enable image optimization
   images: {
-    domains: ['cashfree.com', 'cashfreelogo.cashfree.com'],
+    domains: ['cashfree.com'],
     formats: ['image/avif', 'image/webp'],
   },
   
@@ -45,18 +56,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-  
-  // Configure path aliases
-  webpack: (config, { isServer }) => {
-    // Add path aliases
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, 'src'),
-    };
-
-    // Important: return the modified config
-    return config;
   },
   
   // Configure environment variables that should be available on the client
